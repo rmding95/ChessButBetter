@@ -5,7 +5,11 @@ namespace ChessButBetter
 {
     public class BoardUI : MonoBehaviour
     {
-        public GameObject tilePrefab;
+        public GameObject squarePrefab;
+        public SpriteRenderer[, ] squareRenderers;
+        public int squareSize;
+        public int boardLength;
+        public int boardWidth;
         // Start is called before the first frame update
         void Start()
         {
@@ -20,23 +24,24 @@ namespace ChessButBetter
 
         void generateBoard()
         {
-            int length = 5;
-            int width = 5;
-            int xPos = 0;
-            int yPos = 0;
-            Board board = new Board(length, width);
-            for (int row = 0; row < length; row++)
+            float xPos = 0.0f;
+            float yPos = 0.0f;
+            Board board = new Board(boardLength, boardWidth);
+            squareRenderers = new SpriteRenderer[boardLength, boardWidth];
+            for (int row = 0; row < boardLength; row++)
             {
-                for (int col = 0; col < width; col++)
+                for (int col = 0; col < boardWidth; col++)
                 {
-                    Tile tile = board.getTile(row, col);
-                    Instantiate(tilePrefab, new Vector2(xPos, yPos), Quaternion.identity);
-                    Debug.Log("Created new gameobject at " + xPos + ", " + yPos);
-                    xPos += 10;
-                    Debug.Log("Row: " + row + " Col: " + col);
+                    // Instantiate is a shortcut to creating gameobjects if you have prefabs
+                    // Without instantiate, you could create an object like GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Quad) for a basic square object
+                    GameObject square = Instantiate(squarePrefab, new Vector2(xPos, yPos), Quaternion.identity);
+                    square.transform.localScale = new Vector3(squareSize, squareSize, 0);
+                    squareRenderers[row, col] = square.GetComponent<SpriteRenderer>();
+                    squareRenderers[row, col].color = Color.yellow;
+                    xPos += squareSize + 0.2f;
                 }
                 xPos = 0;
-                yPos += 10;
+                yPos += squareSize + 0.2f;
             }
         }
     }
