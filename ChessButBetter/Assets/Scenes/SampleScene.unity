@@ -235,7 +235,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b9d213b844ea2408d721a3860ba414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 8896083309889684089, guid: e2f77910fbb45604998af0d86fb91322, type: 3}
+  squarePrefab: {fileID: 8896083309889684089, guid: e2f77910fbb45604998af0d86fb91322, type: 3}
+  squareSize: 10
+  boardLength: 4
+  boardWidth: 4
 --- !u!4 &1600353885
 Transform:
   m_ObjectHideFlags: 0
